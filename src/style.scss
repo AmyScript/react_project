@@ -1,0 +1,11 @@
+@import 'setup';
+
+.content {
+	display:flex;
+	.jobs {
+		width:50%;
+	}
+	.review {
+		width:50%;
+	}
+}
