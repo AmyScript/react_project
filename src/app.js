@@ -2,69 +2,27 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { ajax, when } from 'jquery';
 import Job from './jobs.js';
-import Review from './review.js';
+import Header from './header.js'
+import MyFavs from './myfavs.js';
+import CompanyDetails from './companydetails.js'
+import Footer from './footer.js'
 import { Router, Route, browserHistory, Link } from 'react-router';
 
 const indeedApiKey = '615485832038992';
 const indeedApiUrl = 'http://api.indeed.com/ads/apisearch'
-const glassdoorApiId = '131464';
-const glassdoorApiKey = 'bWbLVsTAXzS';
-const glassdoorApiUrl = 'http://api.glassdoor.com/api/api.htm?t.p=131464&t.k=bWbLVsTAXzS';
+let userId = '';
 
 
 
-
-class CompanyDetails extends React.Component {
-	constructor() {
-		super();
-		this.state = {
-			companies: {}
-		}
-	}
-	render() {
-		return(
-			<div>
-			<header>
-				<Link to={`/`}>Back to Job Search Results</Link>
-			</header>
-			<div className="review">
-				<Review data={this.state.companies} />
-			</div>
-			</div>
-		)
-	}
-	componentDidMount() {
-		const companies = ajax({
-			url: glassdoorApiUrl,
-            dataType: 'jsonp',
-            method:'GET',
-            data: {
-            	userip:'0.0.0.0',
-            	useragent:'abc',
-            	format: 'json',
-            	v:1,
-            	action: 'employers',
-            	q: this.props.params.company_name
-                }
-            
-		})
-		when(companies).done((result) => {
-				if(result.response.employers.length !== 0) {
-				document.getElementsByClassName('review')[0].style.visibility = 'visible';
-				this.setState({
-					companies: result.response.employers[0]
-				})
-			} else {
-				this.setState({
-					companies: {
-						name: "Sorry company not found"
-					}
-				})
-			}
-		});
-	}
-
-}
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyCrDj86WxoajkbhJOmJv-i3vR2W2xc8YdU",
+    authDomain: "jobsearch-e2b46.firebaseapp.com",
+    databaseURL: "https://jobsearch-e2b46.firebaseio.com",
+    storageBucket: "jobsearch-e2b46.appspot.com",
+    messagingSenderId: "213109786782"
+};
+firebase.initializeApp(config);
 
 class App extends React.Component {
 	constructor() {
@@ -73,9 +31,9 @@ class App extends React.Component {
 			jobs: [],
 			companies: {},
 			jobType: "",
-			jobLocation:""
+			jobLocation:"",
+			favJob: {}
 		}
-		this.checkCompany = this.checkCompany.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.getJobs = this.getJobs.bind(this);
 	}
@@ -148,6 +106,7 @@ class App extends React.Component {
 					jobs: jobsArray
 				})
 				console.log(this.state.jobs);
+				console.log(window.x);
 			}))
 			});
 		}
@@ -158,36 +117,57 @@ class App extends React.Component {
 			[e.target.name]: e.target.value
 		})
 	}
+	save(company, jobTitle, url, snippet, city, starred, key) {
+		//if userID is present
+		//push favourites into userID folder
+		//display favourites based on userID folder
+		//if userID is not present
+		//do not allow favourites
 
+		firebase.auth().onAuthStateChanged((user) => {
+			if(user) {
+				let userId = user.uid;
+				if (starred === true) {
+					const dbRef = firebase.database().ref(userId + '/' + key);
+					dbRef.remove();
+				} else {
+					const dbRef = firebase.database().ref(userId + '/' + key).set({
+						company: company,
+						job: jobTitle,
+						url: url,
+						city: city,
+						snippet: snippet
+					});
+				}
+			}
+		})
+		
+	}
 	render() {
 		return(
-			<div>
-				<header>
-				<h1>Search for Jobs in Canada</h1>
-				<form onSubmit={(e) => this.getJobs(e,this.state.jobType, this.state.jobLocation)}>
-					Job:<input type="text" name="jobType" onChange={this.handleChange} value={this.state.jobType} />Location:<input type="text" name="jobLocation" onChange={this.handleChange} value={this.state.jobLocation} /><button>Search</button>
-				</form>
-				</header>
+			<div className="container">
+				<Header />
+				<section className="searchSection">
+					<form className="searchJobs" onSubmit={(e) => this.getJobs(e,this.state.jobType, this.state.jobLocation)}>
+						<h4>Job:</h4><input type="text" name="jobType" onChange={this.handleChange} value={this.state.jobType} />
+						<h4>Location:</h4><input type="text" name="jobLocation" onChange={this.handleChange} value={this.state.jobLocation} /><button><h4>Search</h4></button>
+					</form>
+				</section>
 				<section className="content">
 					<div className="jobs">
 					{this.state.jobs.map((job, i) => {
 						return(
 							//doesn't have to be called data, can be called anything, can have multiple props
-							<Job data={job} checkCompany={this.checkCompany} key={i} />
+							<Job data={job} save={this.save} key={i} />
 						)
 					})}
 					</div>
-					<div className="review">
-						<Review data={this.state.companies} />
-					</div>
-
 				</section>
+				<Footer />
 			</div>
 		)
 	}
 	componentDidMount() {
-		//don't need a dollar sign because we deconstructed it in the import to only bring in Ajax
-		document.getElementsByClassName('review')[0].style.visibility = 'hidden';
 		if(localStorage.getItem("jobs_search") && localStorage.getItem("jobs_location")) {
 			const event = {
 				preventDefault() {}
@@ -196,43 +176,11 @@ class App extends React.Component {
 		}
 	}
 
-	checkCompany(company) {
-		console.log(company);
-		const companies = ajax({
-			url: glassdoorApiUrl,
-            dataType: 'jsonp',
-            method:'GET',
-            data: {
-            	userip:'0.0.0.0',
-            	useragent:'abc',
-            	format: 'json',
-            	v:1,
-            	action: 'employers',
-            	q: company
-                }
-            
-		})
-		when(companies).done((result) => {
-			console.log(result, this);
-				if(result.response.employers.length !== 0) {
-				document.getElementsByClassName('review')[0].style.visibility = 'visible';
-				this.setState({
-					companies: result.response.employers[0]
-				})
-			} else {
-				this.setState({
-					companies: {
-						name: "Sorry company not found"
-					}
-				})
-			}
-		});
-
-	}
 }
 
 ReactDOM.render(
 	<Router history={browserHistory}>
 		<Route path='/' component={App} />
 		<Route path='/company/:company_name' component={CompanyDetails} />
+		<Route path='/favs' component={MyFavs} />
 	</Router>, document.getElementById('app'));

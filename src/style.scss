@@ -1,11 +1,297 @@
 @import 'setup';
 
-.content {
+$blue:#6484aa;
+$yellow:#c99e2e;
+
+//global
+
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: 'Raleway', sans-serif;
+}
+
+a {
+	text-decoration: none;
+	font-size:1.5rem;
+}
+
+//fonts
+h1, h2, h3, h4, h5, h6 {
+	padding:0;
+	margin:0;
+}
+
+h1 {
+	font-weight: 800;
+	font-size:4.2rem;
+}
+
+h2 {
+	font-weight: 800;
+	font-size:3.5rem;
+}
+
+h3 {
+	font-weight: 800;
+	font-size:3.2rem;
+}
+
+h4 {
+	font-weight: 800;
+	font-size:2.8rem;
+}
+
+h5 {
+	font-weight: 800;
+	font-size:2.4rem;
+}
+
+p {
+	font-size: 1.5rem;
+}
+//body
+
+.container {
+	max-width: 1440px;
+	margin:0 auto;
+}
+
+//Header
+
+header {
 	display:flex;
-	.jobs {
-		width:50%;
+	justify-content:space-between;
+	flex-wrap:wrap;
+	padding:20px 10px;
+	background:black;
+		ul {
+		display:flex;
+			li {
+				list-style: none;
+				padding:0px 20px;
+			}
+		}
+		h1 {
+			color:lightgrey;
+		}
+		a {
+			color:lightgrey;
+		}
+}
+.signup.invisible, .login.invisible, .signout.invisible, .invisible {
+	display:none;
+}
+
+.active {
+	cursor: default;
+}
+
+//login
+
+.user-form {
+	position:fixed;
+	padding:40px 0px;
+	top:20%;
+	left:50%;
+	transform:translate(-50%, -50%);
+	background:white;
+	input {
+		font-size: 1.5rem;
+		padding:5px 10px;
+		margin:10px 40px;
+		width:200px;
 	}
-	.review {
-		width:50%;
+	button {
+		border:none;
+		background-color: $blue;
+		font-size:1.5rem;
+		font-weight: 800;
+		width:calc(100% - 40px - 40px);
+		margin: 10px 40px;
+		padding: 5px 10px;
+
 	}
+}
+//Jobs Search Section
+.searchSection {
+	background:url('../hero.jpeg');
+	background-size: cover;
+	background-position: center center;
+	height:300px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+form.searchJobs {
+	input {
+		font-size:1.5rem;
+		padding:5px;
+		margin:0px 10px;
+		vertical-align: middle;
+
+	}
+	h4 {
+		display:inline-block;
+		vertical-align: middle;
+	}
+	button {
+		vertical-align: middle;
+		border:none;
+		padding:5px 10px;
+		border-radius: 5px;
+		background-color: $blue;
+		&:hover {
+			cursor: pointer;
+			background-color: white;
+		}
+	}
+}
+
+//Jobs and Favourites Display
+.redstar {
+	color:red;
+}
+
+.fa-star:hover {
+	cursor:pointer;
+	color:red;
+}
+
+.fa-times:hover {
+	cursor:pointer;
+	color:red;
+}
+
+.fa-star.invisible {
+	display:none;
+}
+
+
+.jobItem {
+	padding:20px 40px;
+	h4 {
+		display:inline-block;
+	}
+	h5 {
+		vertical-align: middle;
+	}
+	i {
+		font-size:2.2rem;
+		padding:0px 5px;
+
+	}
+	button {
+		border:none;
+		background-color: $blue;
+		border-radius: 5px;
+		vertical-align: middle;
+		padding:5px 10px;
+		font-weight: 800;
+	}
+	.apply {
+		background-color: $yellow;
+		width:100px;
+		padding:10px 20px;
+		text-align: center;
+		border-radius: 5px;
+		color:black;
+		font-weight: 800;
+	}
+
+	
+}
+
+.favJobs {
+	min-height:calc(100vh - 90px - 70px);
+}
+
+//Company Info
+.reviewItem {
+	padding:20px 40px;
+	min-height:calc(100vh - 90px - 70px);
+ 	.title {
+ 		text-align: center;
+ 		h3 {
+ 			display:inline-block;
+ 			vertical-align: middle;
+ 		}
+ 		img {
+ 			width:10%;
+ 			vertical-align: middle;
+ 			padding:0px 10px;
+ 		}
+ 		a {
+ 			color:$blue;
+ 		}
+ 	}
+	
+}
+
+//footer
+footer {
+	min-height:70px;
+	padding:10px 0px;
+	color:lightgrey;
+	background-color:black;
+	text-align: center;
+	p {
+		display:inline-block;
+	}
+	a {
+		color:lightgrey;
+	}
+	span {
+		padding:0px 10px;
+	}
+}
+
+//media queries
+
+//Portrait tablet and small desktops */
+@media (max-width: 940px) {
+}
+
+// Landscape phone to portrait tablet */
+@media (max-width: 768px) {
+header {
+	ul {
+		padding:0;
+	}
+}
+.searchSection form {
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	button {
+		margin-top:10px;
+	}
+}
+}
+
+// Landscape phones and down */
+@media (max-width: 480px) {
+footer {
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+}
+}
+
+@media (max-width: 370px) {
+header {
+	flex-direction:column;
+	text-align: center;
+	ul {
+		flex-direction:column;
+		align-items:center;
+		margin: 0 auto;
+	}
+}
+.searchSection {
+	min-height:calc(100vh - 161px - 113px)
+}
 }
