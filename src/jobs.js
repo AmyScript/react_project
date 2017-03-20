@@ -1,12 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
-let userId='';
+
 
 export default class Job extends React.Component {
 		constructor() {
 			super();
 			this.state = {
-				starred: false
+				starred: false,
+				userId: ''
 			}
 			this.clickHandler = this.clickHandler.bind(this)
 		}
@@ -16,8 +17,10 @@ export default class Job extends React.Component {
 			//if one of the keys in the database is equal to this.props.data.jobkey set starred to true
 			firebase.auth().onAuthStateChanged((user) => {
 				if(user) {
-					userId = user.uid;
-					const dbRef = firebase.database().ref(userId);
+					this.setState({
+						userId: user.uid
+					})
+					const dbRef = firebase.database().ref(this.state.userId);
 					dbRef.on('value', (data) => {
 						const dataBaseData = data.val();
 						const itemArray = [];
@@ -43,7 +46,7 @@ export default class Job extends React.Component {
 			if (this.state.starred === true) {
 				starClassNames += " redstar";
 			} 
-			if (!userId) {
+			if (!this.state.userId) {
 				starClassNames += " invisible";
 			}
 			return(

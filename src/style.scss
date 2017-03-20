@@ -98,6 +98,8 @@ header {
 	left:50%;
 	transform:translate(-50%, -50%);
 	background:white;
+	width:300px;
+	text-align: center;
 	input {
 		font-size: 1.5rem;
 		padding:5px 10px;
@@ -114,6 +116,15 @@ header {
 		padding: 5px 10px;
 
 	}
+}
+.error {
+	width:80%;
+	margin:0 auto;
+}
+.errorMessage {
+	color:red;
+	font-size:1.2rem;
+	text-align: center;
 }
 //Jobs Search Section
 .searchSection {
@@ -228,8 +239,26 @@ form.searchJobs {
  			color:$blue;
  		}
  	}
+ 	button {
+ 		border:none;
+ 		background-color: $yellow;
+ 		width:200px;
+ 		padding:10px 20px;
+ 		text-align: center;
+ 		border-radius: 5px;
+ 		color:black;
+ 		font-weight: 800;
+ 		a {
+ 			color:black;
+ 		}
+
+ 	}
+ 	div {
+ 		padding:20px 0px;
+ 	}
 	
 }
+
 
 //footer
 footer {

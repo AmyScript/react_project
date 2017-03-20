@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, Link } from 'react-router';
-
-export default class Header extends React.Component {
+let errorCode='';
+class Header extends React.Component {
 	constructor() {
 		super();
 		this.state = {
@@ -10,16 +10,20 @@ export default class Header extends React.Component {
 			email: '',
 			password: '',
 			confirm: '',
-			userId:''
+			userId:'',
+			errorMsg:''
 		};
 		this.formToShow = this.formToShow.bind(this);
 		this.handleChange = this.handleChange.bind(this);
 		this.signup = this.signup.bind(this);
 		this.login = this.login.bind(this);
+		this.signOut = this.signOut.bind(this);
 		firebase.auth().onAuthStateChanged((user) => {
-			this.setState({
-				userId: user.uid
-			})
+			if (user) {
+				this.setState({
+					userId: user.uid
+				})
+			}
 		})
 	}
 	formToShow(e) {
@@ -41,13 +45,24 @@ export default class Header extends React.Component {
 			firebase.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.password)
 				.then((userData) => {
-					console.log(userData);
+					this.setState({
+						formToShow: ''
+					})
+				})
+				.catch((error) => {
+					errorCode = error.code;
+					let errorMessage = error.message;
+					if (errorCode) {
+						this.setState({
+							errorMsg: errorMessage
+						})
+					}
 				});
-			this.setState({
-				formToShow: ''
-			})
+			
 		} else {
-
+			this.setState({
+				errorMsg: "Passwords do not match."
+			})
 		}
 
 	}
@@ -56,22 +71,35 @@ export default class Header extends React.Component {
 		firebase.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.then((userData) => {
-				console.log(userData.uid);
+				this.setState({
+					formToShow: ''
+				})
 			})
-			this.setState({
-				formToShow: ''
-			})
+			.catch((error) => {
+				errorCode = error.code;
+				let errorMessage = error.message;
+				if (errorCode) {
+					this.setState({
+						errorMsg: errorMessage
+					})
+				}
+			});
+			
 	}
-	signOut() {
+	signOut(e) {
+		e.preventDefault();
 		firebase.auth().signOut();
 		localStorage.setItem("jobs_search", '');
 		localStorage.setItem("jobs_location", '');
+		console.log(this.props.router);
+		this.context.router.push('/');
 		this.setState({
 			userId: ''
 		})
 
 	}
 	render() {
+		
 		let loginClassName = "login";
 		let signUpClassName = "signup";
 		let signOutClassName = "signout";
@@ -99,6 +127,9 @@ export default class Header extends React.Component {
 					<div>
 						<button>Sign In</button>
 					</div>
+					<div className="error">
+						<p className="errorMessage"> {this.state.errorMsg} </p>
+					</div>
 				</form>
 			);
 		}
@@ -114,6 +145,9 @@ export default class Header extends React.Component {
 					<div>
 						<button>Log In</button>
 					</div>
+					<div className="error">
+						<p className="errorMessage"> {this.state.errorMsg} </p>
+					</div>
 				</form>
 			);
 		}
@@ -128,7 +162,7 @@ export default class Header extends React.Component {
 							<li className={signUpClassName}><a href="" className={signUpClassName} onClick={this.formToShow}>Sign Up</a></li>
 							<li className={loginClassName}><a href="" className={loginClassName} onClick={this.formToShow}>Log In</a></li>
 							<li className={signOutClassName}><a href="" className={signOutClassName} onClick={this.signOut}>Sign Out</a></li>
-							<li><a href="https://twitter.com/share?url=http%3A%2F%2Famyscript.com%2Fjobs&text=Find%20your%20dream%20job!" className="twitter-share-button" ><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script></li>
+							<li><a href="https://twitter.com/share?url=http%3A%2F%2Famyscript.com%2Fjobs&text=Find%20your%20dream%20job!" className="twitter-share-button" ><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
 						</ul>
 					</nav>
 				</header>
@@ -137,3 +171,10 @@ export default class Header extends React.Component {
 		)
 	}
 }
+
+Header.contextTypes = {
+	router: React.PropTypes.object
+}
+
+
+export default Header;

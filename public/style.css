@@ -201,7 +201,9 @@ header {
   top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: white; }
+  background: white;
+  width: 300px;
+  text-align: center; }
   .user-form input {
     font-size: 1.5rem;
     padding: 5px 10px;
@@ -215,6 +217,15 @@ header {
     width: calc(100% - 40px - 40px);
     margin: 10px 40px;
     padding: 5px 10px; }
+
+.error {
+  width: 80%;
+  margin: 0 auto; }
+
+.errorMessage {
+  color: red;
+  font-size: 1.2rem;
+  text-align: center; }
 
 .searchSection {
   background: url("../hero.jpeg");
@@ -304,6 +315,19 @@ form.searchJobs button {
       padding: 0px 10px; }
     .reviewItem .title a {
       color: #6484aa; }
+  .reviewItem button {
+    border: none;
+    background-color: #c99e2e;
+    width: 200px;
+    padding: 10px 20px;
+    text-align: center;
+    border-radius: 5px;
+    color: black;
+    font-weight: 800; }
+    .reviewItem button a {
+      color: black; }
+  .reviewItem div {
+    padding: 20px 0px; }
 
 footer {
   min-height: 70px;
