@@ -4,7 +4,9 @@ $blue:#6484aa;
 $yellow:#c99e2e;
 
 //global
-
+* {
+	transition: all 1s linear;
+}
 html {
 	font-size: 62.5%;
 }
@@ -76,6 +78,9 @@ header {
 		}
 		h1 {
 			color:lightgrey;
+			a {
+				font-size:4.2rem;
+			}
 		}
 		a {
 			color:lightgrey;
@@ -126,6 +131,7 @@ header {
 	font-size:1.2rem;
 	text-align: center;
 }
+
 //Jobs Search Section
 .searchSection {
 	background:url('../hero.jpeg');
@@ -135,6 +141,10 @@ header {
 	display:flex;
 	justify-content:center;
 	align-items:center;
+}
+
+.searchSection.full {
+	height:calc(100vh - 89px - 70px);
 }
 
 form.searchJobs {
@@ -211,6 +221,8 @@ form.searchJobs {
 		border-radius: 5px;
 		color:black;
 		font-weight: 800;
+		display: inline-block;
+		margin-top: 10px;
 	}
 
 	
@@ -262,6 +274,13 @@ form.searchJobs {
 textarea {
 	resize:none;
 	width:80%;
+	font-size:1.5rem;
+	padding-bottom:10px;
+}
+
+.favJobs form button {
+    vertical-align: bottom;
+    margin: 0px 10px;
 }
 
 //footer
@@ -326,5 +345,8 @@ header {
 }
 .searchSection {
 	min-height:calc(100vh - 161px - 113px)
+}
+.favJobs form button {
+    margin: 0px;
 }
 }

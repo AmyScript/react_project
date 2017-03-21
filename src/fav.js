@@ -14,10 +14,13 @@ export default class Fav extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 		this.saveNote = this.saveNote.bind(this);
 		this.componentDidMount = this.componentDidMount.bind(this);
+		this.remove = this.remove.bind(this);
+		this.getDatabaseNote = this.getDatabaseNote.bind(this);
 	}
 	remove(key) {
 		const dbRef = firebase.database().ref(userId + '/' + key);
 		dbRef.remove();
+		this.getDatabaseNote();
 	}
 	showNote(key) {
 		this.setState({
@@ -25,18 +28,10 @@ export default class Fav extends React.Component {
 		})
 	}
 	handleChange(e) {
-
-		let savedNote = this.state.savedNote
-
-		if (savedNote) {
-			this.setState({
-				[e.target.name]: e.target.value
-			})
-		} else {
+		
 		this.setState({
 			[e.target.name]: e.target.value
 		});
-		}
 	}
 	saveNote(e, key) {
 		e.preventDefault();
@@ -44,7 +39,7 @@ export default class Fav extends React.Component {
 			if(user) {
 				let userId = user.uid;
 				let dbRef = firebase.database().ref(userId + '/' + key).update({
-					note: this.state.textBox
+					note: this.state.savedNote
 				});
 				dbRef = firebase.database().ref(userId + '/' + key);
 				dbRef.on('value', (data) => {
@@ -55,23 +50,17 @@ export default class Fav extends React.Component {
 					})
 				})
 			}
-		
-
 	}
 	render() {
-		console.log(this.state.savedNote);
 		let notes ='';
 		if (this.state.showNote && this.state.savedNote ===''){
 			notes = (
-			
 				<form>
-				<textarea type="text" name="textBox" onChange={this.handleChange}></textarea>
+				<textarea type="text" name="savedNote" onChange={this.handleChange}></textarea>
 				<button type="submit" onClick={(e) => this.saveNote(e,this.props.data.key)}>Save</button>
 				</form>
-		
-
 			);
-		} else if (!this.state.showNote && this.state.savedNote !==undefined) {
+		} else if (!this.state.showNote && this.state.savedNote !==undefined && this.state.savedNote !=='') {
 			notes = (
 				<div>
 					<h5>Notes:</h5>
@@ -82,7 +71,7 @@ export default class Fav extends React.Component {
 		} else if (this.state.showNote && this.state.savedNote !=='') {
 			notes = (
 				<form>
-				<textarea type="text" name="textBox" onChange={this.handleChange} value={this.state.textBox} ></textarea>
+				<textarea type="text" name="savedNote" onChange={this.handleChange} value={this.state.savedNote} ></textarea>
 				<button type="submit" onClick={(e) => this.saveNote(e,this.props.data.key)}>Save</button>
 				</form>
 
@@ -106,20 +95,26 @@ export default class Fav extends React.Component {
 
 		)
 	}
-	componentDidMount() {
-		let user = firebase.auth().currentUser;
-			if(user) {	
-				userId = user.uid;
-				let key = this.props.data.key
-				let dbRef = firebase.database().ref(userId + '/' + key);
-				dbRef.on('value', (data) => {
-					const dataBaseData = data.val();
-					if (dataBaseData.note !== null) {
-					this.setState({
-						savedNote: dataBaseData.note
-					})
-					}
-				})			
-			}
+	getDatabaseNote() {
+			this.setState({
+				savedNote:''
+			})
+			let user = firebase.auth().currentUser;
+				if(user) {	
+					userId = user.uid;
+					let key = this.props.data.key
+					let dbRef = firebase.database().ref(userId + '/' + key);
+					dbRef.on('value', (data) => {
+						const dataBaseData = data.val();
+						this.setState({
+							savedNote: dataBaseData.note
+						})
+		
+					})			
+				}
 	}
+	componentDidMount() {
+		this.getDatabaseNote();
+	}
+
 }

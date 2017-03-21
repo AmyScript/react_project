@@ -128,6 +128,9 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 * {
   box-sizing: border-box; }
 
+* {
+  transition: all 1s linear; }
+
 html {
   font-size: 62.5%; }
 
@@ -186,6 +189,8 @@ header {
       padding: 0px 20px; }
   header h1 {
     color: lightgrey; }
+    header h1 a {
+      font-size: 4.2rem; }
   header a {
     color: lightgrey; }
 
@@ -238,6 +243,9 @@ header {
       justify-content: center;
   -ms-flex-align: center;
       align-items: center; }
+
+.searchSection.full {
+  height: calc(100vh - 89px - 70px); }
 
 form.searchJobs input {
   font-size: 1.5rem;
@@ -296,7 +304,9 @@ form.searchJobs button {
     text-align: center;
     border-radius: 5px;
     color: black;
-    font-weight: 800; }
+    font-weight: 800;
+    display: inline-block;
+    margin-top: 10px; }
 
 .favJobs {
   min-height: calc(100vh - 90px - 70px); }
@@ -331,7 +341,13 @@ form.searchJobs button {
 
 textarea {
   resize: none;
-  width: 80%; }
+  width: 80%;
+  font-size: 1.5rem;
+  padding-bottom: 10px; }
+
+.favJobs form button {
+  vertical-align: bottom;
+  margin: 0px 10px; }
 
 footer {
   min-height: 70px;
@@ -380,4 +396,6 @@ footer {
           align-items: center;
       margin: 0 auto; }
   .searchSection {
-    min-height: calc(100vh - 161px - 113px); } }
+    min-height: calc(100vh - 161px - 113px); }
+  .favJobs form button {
+    margin: 0px; } }

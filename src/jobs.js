@@ -16,6 +16,11 @@ export default class Job extends React.Component {
 			//go through keys in the database
 			//if one of the keys in the database is equal to this.props.data.jobkey set starred to true
 			firebase.auth().onAuthStateChanged((user) => {
+				if(!user) {
+					this.setState({
+						userId:''
+					})
+				}
 				if(user) {
 					this.setState({
 						userId: user.uid

@@ -56,7 +56,6 @@ export default class CompanyDetails extends React.Component {
 					}
 				})
 			}
-			console.log(this.state.companies);
 		});
 	}
 

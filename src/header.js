@@ -39,8 +39,6 @@ class Header extends React.Component {
 	}
 	signup(e) {
 		e.preventDefault();
-		console.log('signing up');
-		console.log(this.state.email, this.state.password, this.state.confirm);
 		if(this.state.password === this.state.confirm) {
 			firebase.auth()
 				.createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -91,11 +89,11 @@ class Header extends React.Component {
 		firebase.auth().signOut();
 		localStorage.setItem("jobs_search", '');
 		localStorage.setItem("jobs_location", '');
-		console.log(this.props.router);
 		this.context.router.push('/');
 		this.setState({
 			userId: ''
 		})
+		window.location.reload(false);
 
 	}
 	render() {
@@ -154,7 +152,7 @@ class Header extends React.Component {
 		return(
 			<div>
 				<header>
-					<h1>Dream Job</h1>
+					<h1><Link to={`/`}>Dream Job</Link></h1>
 					<nav>
 						<ul>
 							<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#6484aa'}}>Job Search</Link></li>
@@ -162,7 +160,7 @@ class Header extends React.Component {
 							<li className={signUpClassName}><a href="" className={signUpClassName} onClick={this.formToShow}>Sign Up</a></li>
 							<li className={loginClassName}><a href="" className={loginClassName} onClick={this.formToShow}>Log In</a></li>
 							<li className={signOutClassName}><a href="" className={signOutClassName} onClick={this.signOut}>Sign Out</a></li>
-							<li><a href="https://twitter.com/share?url=http%3A%2F%2Famyscript.com%2Fjobs&text=Find%20your%20dream%20job!" className="twitter-share-button" ><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
+							<li><a href="https://twitter.com/share?url=http%3A%2F%2Famyscript.com%2Fjobs&text=Find%20your%20dream%20job!" className="twitter-share-button"  target="newwindow"><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
 						</ul>
 					</nav>
 				</header>

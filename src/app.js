@@ -11,9 +11,8 @@ import { Router, Route, browserHistory, Link } from 'react-router';
 const indeedApiKey = '615485832038992';
 const indeedApiUrl = 'http://api.indeed.com/ads/apisearch'
 let userId = '';
-
-
-
+let scrollposition = window.pageYOffset;
+console.log(scrollposition);
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCrDj86WxoajkbhJOmJv-i3vR2W2xc8YdU",
@@ -36,10 +35,10 @@ class App extends React.Component {
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.getJobs = this.getJobs.bind(this);
+		this.save = this.save.bind(this);
 	}
 
 	getJobs(e, jobType, jobLocation) {
-		console.log(jobType);
 		e.preventDefault();
 		if (jobType !=="" && jobLocation !=="") {
 			localStorage.setItem("jobs_search", jobType);
@@ -68,7 +67,6 @@ class App extends React.Component {
 	            }
 			})
 			when(allJobs).done((res) => {
-				console.log(res);
 				this.setState({
 					jobs: res.results
 				})
@@ -105,8 +103,6 @@ class App extends React.Component {
 				this.setState({
 					jobs: jobsArray
 				})
-				console.log(this.state.jobs);
-				console.log(window.x);
 			}))
 			});
 		}
@@ -144,10 +140,14 @@ class App extends React.Component {
 		
 	}
 	render() {
+		let searchSectionClassName = "searchSection";
+		if (this.state.jobs.length === 0) {
+			searchSectionClassName += " full";
+		}
 		return(
 			<div className="container">
 				<Header />
-				<section className="searchSection">
+				<section className={searchSectionClassName}>
 					<form className="searchJobs" onSubmit={(e) => this.getJobs(e,this.state.jobType, this.state.jobLocation)}>
 						<h4>Job:</h4><input type="text" name="jobType" onChange={this.handleChange} value={this.state.jobType} />
 						<h4>Location:</h4><input type="text" name="jobLocation" onChange={this.handleChange} value={this.state.jobLocation} /><button><h4>Search</h4></button>
