@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, Link } from 'react-router';
 let errorCode='';
+let loginForm = '';
 class Header extends React.Component {
 	constructor() {
 		super();
@@ -18,6 +19,7 @@ class Header extends React.Component {
 		this.signup = this.signup.bind(this);
 		this.login = this.login.bind(this);
 		this.signOut = this.signOut.bind(this);
+		this.close = this.close.bind(this);
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				this.setState({
@@ -96,8 +98,14 @@ class Header extends React.Component {
 		window.location.reload(false);
 
 	}
+	close(e) {
+		e.preventDefault();
+		this.setState ({
+			formToShow: ''
+		})
+	}
 	render() {
-		
+		loginForm = '';
 		let loginClassName = "login";
 		let signUpClassName = "signup";
 		let signOutClassName = "signout";
@@ -109,10 +117,14 @@ class Header extends React.Component {
 			signOutClassName +=" invisible";
 			favClassName +="invisible";
 		}
-		let loginForm = '';
+		
 		if(this.state.formToShow === 'signup') {
 			loginForm = (
 				<form onSubmit={this.signup} className="user-form">
+					<i className="fa fa-times closeForm" aria-hidden="true" onClick={this.close}></i>
+					<p>Welcome to Dream Job!</p>
+					<i className="fa fa-user-plus" aria-hidden="true"></i>
+					<p> Create Your Account </p>
 					<div>
 						<input type="email" name="email" placeholder="Email" onChange={this.handleChange} />
 					</div>
@@ -134,6 +146,10 @@ class Header extends React.Component {
 		else if(this.state.formToShow === "login") {
 			loginForm = (
 				<form onSubmit={this.login} className="user-form">
+					<i className="fa fa-times closeForm" aria-hidden="true" onClick={this.close}></i>
+					<p>Welcome back to Dream Job!</p>
+					<i className="fa fa-user-circle-o" aria-hidden="true"></i>
+					<p> Sign In to your account</p>
 					<div>
 						<input type="email" name="email" placeholder="Email" onChange={this.handleChange}/>
 					</div>
@@ -152,7 +168,9 @@ class Header extends React.Component {
 		return(
 			<div>
 				<header>
-					<h1><Link to={`/`}>Dream Job</Link></h1>
+					<div>
+						<h1 className="logo"><Link to={`/`}>Dream Job</Link></h1><img src="../dreamJob.png" />
+					</div>
 					<nav>
 						<ul>
 							<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#6484aa'}}>Job Search</Link></li>

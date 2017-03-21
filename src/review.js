@@ -13,7 +13,7 @@ export default (props) => {
 			</div>
 			<div>
 				<h5>Industry: {props.data.industry}</h5>
-				<h5>Ratings by {props.data.numberOfRatings} Users:</h5>
+				<h5 className="blue">Ratings by {props.data.numberOfRatings} Users:</h5>
 				<p>Compensation and Benefits: {props.data.compensationAndBenefitsRating}</p>
 				<p>Culture and Value: {props.data.cultureAndValuesRating}</p>
 				<p>Work Life Balance: {props.data.workLifeBalanceRating}</p>
@@ -23,7 +23,7 @@ export default (props) => {
 			{props.data.featuredReview !== undefined ? 
 				<div> 
 					
-					<h5>Feature Review from {props.data.featuredReview.jobTitle}</h5>
+					<h5 className="blue">Feature Review from {props.data.featuredReview.jobTitle}</h5>
 					<h5>Pros:</h5>
 					<p>"{props.data.featuredReview.pros}"</p>
 					<h5>Cons:</h5>

@@ -4,9 +4,7 @@ $blue:#6484aa;
 $yellow:#c99e2e;
 
 //global
-* {
-	transition: all 1s linear;
-}
+
 html {
 	font-size: 62.5%;
 }
@@ -69,6 +67,9 @@ header {
 	flex-wrap:wrap;
 	padding:20px 10px;
 	background:black;
+		nav {
+			display:flex;
+		}
 		ul {
 		display:flex;
 			li {
@@ -77,13 +78,20 @@ header {
 			}
 		}
 		h1 {
-			color:lightgrey;
+			color:white;
 			a {
 				font-size:4.2rem;
 			}
 		}
 		a {
-			color:lightgrey;
+			color:white;
+		}
+		img {
+			width:18%;
+			margin-left:10px;
+		}
+		.logo {
+			display:inline-block;
 		}
 }
 .signup.invisible, .login.invisible, .signout.invisible, .invisible {
@@ -99,12 +107,14 @@ header {
 .user-form {
 	position:fixed;
 	padding:40px 0px;
-	top:20%;
+	top:50%;
 	left:50%;
 	transform:translate(-50%, -50%);
 	background:white;
 	width:300px;
 	text-align: center;
+	border: 1px solid lightgrey;
+	box-shadow: 3px 3px 20px lightgrey;
 	input {
 		font-size: 1.5rem;
 		padding:5px 10px;
@@ -116,12 +126,29 @@ header {
 		background-color: $blue;
 		font-size:1.5rem;
 		font-weight: 800;
-		width:calc(100% - 40px - 40px);
+		width:200px;
 		margin: 10px 40px;
 		padding: 5px 10px;
+		&:hover{
+			background-color:white;
+			border:1px solid black;
+		}
 
 	}
 }
+
+.fa.fa-user-circle-o, .fa.fa-user-plus {
+	color: $blue;
+	font-size:4rem;
+}
+
+.fa.fa-times.closeForm {
+	position:absolute;
+	right:10px;
+	top:10px;
+	font-size:1.2rem;
+}
+
 .error {
 	width:80%;
 	margin:0 auto;
@@ -141,10 +168,12 @@ header {
 	display:flex;
 	justify-content:center;
 	align-items:center;
+	transition: height 0.5s linear;
 }
 
 .searchSection.full {
-	height:calc(100vh - 89px - 70px);
+	height:calc(100vh - 90px - 70px);
+	
 }
 
 form.searchJobs {
@@ -162,9 +191,8 @@ form.searchJobs {
 	button {
 		vertical-align: middle;
 		border:none;
-		padding:5px 10px;
-		border-radius: 5px;
-		background-color: $blue;
+		padding:3px 10px;
+		background-color: $yellow;
 		&:hover {
 			cursor: pointer;
 			background-color: white;
@@ -194,6 +222,9 @@ form.searchJobs {
 
 .jobItem {
 	padding:20px 40px;
+	border:1px solid $blue;
+	width:60%;
+	margin:20px auto;
 	h4 {
 		display:inline-block;
 	}
@@ -208,7 +239,6 @@ form.searchJobs {
 	button {
 		border:none;
 		background-color: $blue;
-		border-radius: 5px;
 		vertical-align: middle;
 		padding:5px 10px;
 		font-weight: 800;
@@ -216,15 +246,21 @@ form.searchJobs {
 	.apply {
 		background-color: $yellow;
 		width:100px;
-		padding:10px 20px;
+		padding:5px 10px;
 		text-align: center;
-		border-radius: 5px;
 		color:black;
 		font-weight: 800;
 		display: inline-block;
 		margin-top: 10px;
 	}
-
+	.company, .fa.fa-building-o {
+		color:$blue;
+		display:inline-block;
+		font-size:1.7rem;
+	}
+	.city {
+		display:inline-block;
+	}
 	
 }
 
@@ -236,6 +272,8 @@ form.searchJobs {
 .reviewItem {
 	padding:20px 40px;
 	min-height:calc(100vh - 90px - 70px);
+	width:60%;
+	margin:0 auto;
  	.title {
  		text-align: center;
  		h3 {
@@ -249,15 +287,15 @@ form.searchJobs {
  		}
  		a {
  			color:$blue;
+ 			font-weight: bold;
  		}
  	}
  	button {
  		border:none;
  		background-color: $yellow;
  		width:200px;
- 		padding:10px 20px;
+ 		padding:5px 10px;
  		text-align: center;
- 		border-radius: 5px;
  		color:black;
  		font-weight: 800;
  		a {
@@ -269,6 +307,10 @@ form.searchJobs {
  		padding:20px 0px;
  	}
 	
+}
+
+.blue {
+	color:$blue;
 }
 
 textarea {
@@ -322,6 +364,19 @@ header {
 		margin-top:10px;
 	}
 }
+
+.jobItem {
+	padding:20px 40px;
+	border:1px solid $blue;
+	width:80%;
+	}
+}
+
+@media (max-width: 695px) {
+	.searchSection.full {
+		height:calc(100vh - 128px - 70px)
+	}
+
 }
 
 // Landscape phones and down */
@@ -331,6 +386,16 @@ footer {
 	flex-direction:column;
 	align-items:center;
 }
+.searchSection.full {
+	height:calc(100vh - 127px - 113px)
+}
+.jobItem {
+	padding:20px 40px;
+	border:none;
+	border-bottom:1px solid $blue;
+	width:100%;
+
+	}
 }
 
 @media (max-width: 370px) {
@@ -343,8 +408,8 @@ header {
 		margin: 0 auto;
 	}
 }
-.searchSection {
-	min-height:calc(100vh - 161px - 113px)
+.searchSection.full {
+	height:calc(100vh - 161px - 113px)
 }
 .favJobs form button {
     margin: 0px;

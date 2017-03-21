@@ -128,9 +128,6 @@ legend, button::-moz-focus-inner, input::-moz-focus-inner {
 * {
   box-sizing: border-box; }
 
-* {
-  transition: all 1s linear; }
-
 html {
   font-size: 62.5%; }
 
@@ -181,6 +178,9 @@ header {
       flex-wrap: wrap;
   padding: 20px 10px;
   background: black; }
+  header nav {
+    display: -ms-flexbox;
+    display: flex; }
   header ul {
     display: -ms-flexbox;
     display: flex; }
@@ -188,11 +188,16 @@ header {
       list-style: none;
       padding: 0px 20px; }
   header h1 {
-    color: lightgrey; }
+    color: white; }
     header h1 a {
       font-size: 4.2rem; }
   header a {
-    color: lightgrey; }
+    color: white; }
+  header img {
+    width: 18%;
+    margin-left: 10px; }
+  header .logo {
+    display: inline-block; }
 
 .signup.invisible, .login.invisible, .signout.invisible, .invisible {
   display: none; }
@@ -203,12 +208,14 @@ header {
 .user-form {
   position: fixed;
   padding: 40px 0px;
-  top: 20%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
   width: 300px;
-  text-align: center; }
+  text-align: center;
+  border: 1px solid lightgrey;
+  box-shadow: 3px 3px 20px lightgrey; }
   .user-form input {
     font-size: 1.5rem;
     padding: 5px 10px;
@@ -219,9 +226,22 @@ header {
     background-color: #6484aa;
     font-size: 1.5rem;
     font-weight: 800;
-    width: calc(100% - 40px - 40px);
+    width: 200px;
     margin: 10px 40px;
     padding: 5px 10px; }
+    .user-form button:hover {
+      background-color: white;
+      border: 1px solid black; }
+
+.fa.fa-user-circle-o, .fa.fa-user-plus {
+  color: #6484aa;
+  font-size: 4rem; }
+
+.fa.fa-times.closeForm {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  font-size: 1.2rem; }
 
 .error {
   width: 80%;
@@ -242,10 +262,11 @@ header {
   -ms-flex-pack: center;
       justify-content: center;
   -ms-flex-align: center;
-      align-items: center; }
+      align-items: center;
+  transition: height 0.5s linear; }
 
 .searchSection.full {
-  height: calc(100vh - 89px - 70px); }
+  height: calc(100vh - 90px - 70px); }
 
 form.searchJobs input {
   font-size: 1.5rem;
@@ -260,9 +281,8 @@ form.searchJobs h4 {
 form.searchJobs button {
   vertical-align: middle;
   border: none;
-  padding: 5px 10px;
-  border-radius: 5px;
-  background-color: #6484aa; }
+  padding: 3px 10px;
+  background-color: #c99e2e; }
   form.searchJobs button:hover {
     cursor: pointer;
     background-color: white; }
@@ -282,7 +302,10 @@ form.searchJobs button {
   display: none; }
 
 .jobItem {
-  padding: 20px 40px; }
+  padding: 20px 40px;
+  border: 1px solid #6484aa;
+  width: 60%;
+  margin: 20px auto; }
   .jobItem h4 {
     display: inline-block; }
   .jobItem h5 {
@@ -293,27 +316,33 @@ form.searchJobs button {
   .jobItem button {
     border: none;
     background-color: #6484aa;
-    border-radius: 5px;
     vertical-align: middle;
     padding: 5px 10px;
     font-weight: 800; }
   .jobItem .apply {
     background-color: #c99e2e;
     width: 100px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     text-align: center;
-    border-radius: 5px;
     color: black;
     font-weight: 800;
     display: inline-block;
     margin-top: 10px; }
+  .jobItem .company, .jobItem .fa.fa-building-o {
+    color: #6484aa;
+    display: inline-block;
+    font-size: 1.7rem; }
+  .jobItem .city {
+    display: inline-block; }
 
 .favJobs {
   min-height: calc(100vh - 90px - 70px); }
 
 .reviewItem {
   padding: 20px 40px;
-  min-height: calc(100vh - 90px - 70px); }
+  min-height: calc(100vh - 90px - 70px);
+  width: 60%;
+  margin: 0 auto; }
   .reviewItem .title {
     text-align: center; }
     .reviewItem .title h3 {
@@ -324,20 +353,23 @@ form.searchJobs button {
       vertical-align: middle;
       padding: 0px 10px; }
     .reviewItem .title a {
-      color: #6484aa; }
+      color: #6484aa;
+      font-weight: bold; }
   .reviewItem button {
     border: none;
     background-color: #c99e2e;
     width: 200px;
-    padding: 10px 20px;
+    padding: 5px 10px;
     text-align: center;
-    border-radius: 5px;
     color: black;
     font-weight: 800; }
     .reviewItem button a {
       color: black; }
   .reviewItem div {
     padding: 20px 0px; }
+
+.blue {
+  color: #6484aa; }
 
 textarea {
   resize: none;
@@ -373,7 +405,15 @@ footer {
     -ms-flex-align: center;
         align-items: center; }
     .searchSection form button {
-      margin-top: 10px; } }
+      margin-top: 10px; }
+  .jobItem {
+    padding: 20px 40px;
+    border: 1px solid #6484aa;
+    width: 80%; } }
+
+@media (max-width: 695px) {
+  .searchSection.full {
+    height: calc(100vh - 128px - 70px); } }
 
 @media (max-width: 480px) {
   footer {
@@ -382,7 +422,14 @@ footer {
     -ms-flex-direction: column;
         flex-direction: column;
     -ms-flex-align: center;
-        align-items: center; } }
+        align-items: center; }
+  .searchSection.full {
+    height: calc(100vh - 127px - 113px); }
+  .jobItem {
+    padding: 20px 40px;
+    border: none;
+    border-bottom: 1px solid #6484aa;
+    width: 100%; } }
 
 @media (max-width: 370px) {
   header {
@@ -395,7 +442,7 @@ footer {
       -ms-flex-align: center;
           align-items: center;
       margin: 0 auto; }
-  .searchSection {
-    min-height: calc(100vh - 161px - 113px); }
+  .searchSection.full {
+    height: calc(100vh - 161px - 113px); }
   .favJobs form button {
     margin: 0px; } }

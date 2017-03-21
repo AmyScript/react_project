@@ -56,11 +56,19 @@ export default class Job extends React.Component {
 			}
 			return(
 				<div className="jobItem">
+					<div>
 					<h4>{this.props.data.jobtitle}</h4>
 					<i className={starClassNames} onClick={() => this.clickHandler()} aria-hidden="true"></i>
-					<h5>{this.props.data.company}</h5>
+					</div>
+					<div>
+					<i className="fa fa-building-o" aria-hidden="true"></i><p className="company"><strong>{this.props.data.company}</strong></p>
+					</div>
+					<div>
 					<Link to={`/company/${this.props.data.company}`}><button>Check Company</button></Link>
-					<p>{this.props.data.city}</p>
+					</div>
+					<div>
+					<i className="fa fa-map-marker" aria-hidden="true"></i><p className="city"><strong>{this.props.data.city}</strong></p>
+					</div>
 					<p dangerouslySetInnerHTML={{__html: this.props.data.snippet}}></p>
 					<a href={this.props.data.url} target="newwindow"><div className="apply">Apply</div></a>
 				</div>

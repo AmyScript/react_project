@@ -11,8 +11,7 @@ import { Router, Route, browserHistory, Link } from 'react-router';
 const indeedApiKey = '615485832038992';
 const indeedApiUrl = 'http://api.indeed.com/ads/apisearch'
 let userId = '';
-let scrollposition = window.pageYOffset;
-console.log(scrollposition);
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCrDj86WxoajkbhJOmJv-i3vR2W2xc8YdU",
@@ -150,7 +149,7 @@ class App extends React.Component {
 				<section className={searchSectionClassName}>
 					<form className="searchJobs" onSubmit={(e) => this.getJobs(e,this.state.jobType, this.state.jobLocation)}>
 						<h4>Job:</h4><input type="text" name="jobType" onChange={this.handleChange} value={this.state.jobType} />
-						<h4>Location:</h4><input type="text" name="jobLocation" onChange={this.handleChange} value={this.state.jobLocation} /><button><h4>Search</h4></button>
+						<h4>Location:</h4><input type="text" name="jobLocation" onChange={this.handleChange} value={this.state.jobLocation} /><button><h5>Search</h5></button>
 					</form>
 				</section>
 				<section className="content">

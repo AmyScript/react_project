@@ -82,9 +82,15 @@ export default class Fav extends React.Component {
 				<h4>{this.props.data.job}</h4> 
 				<i className="fa fa-times" onClick={() => this.remove(this.props.data.key)} aria-hidden="true"></i>
 				<i className="fa fa-pencil-square-o" onClick={() => this.showNote(this.props.data.key)} aria-hidden="true"></i>
-				<h5>{this.props.data.company}</h5>
-				<Link to={`/company/${this.props.data.company}`}><button>Check Company</button></Link> 
-				<p>{this.props.data.city}</p>
+				<div>
+					<i className="fa fa-building-o" aria-hidden="true"></i><p className="company"><strong>{this.props.data.company}</strong></p>
+				</div>
+				<div>
+					<Link to={`/company/${this.props.data.company}`}><button>Check Company</button></Link> 
+				</div>
+				<div>
+					<i className="fa fa-map-marker" aria-hidden="true"></i><p className="city"><strong>{this.props.data.city}</strong></p>
+				</div>
 				<p dangerouslySetInnerHTML={{__html: this.props.data.snippet}}></p>
 				<div>
 					{notes}
