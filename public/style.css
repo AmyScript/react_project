@@ -329,6 +329,10 @@ form.searchJobs button {
   .reviewItem div {
     padding: 20px 0px; }
 
+textarea {
+  resize: none;
+  width: 80%; }
+
 footer {
   min-height: 70px;
   padding: 10px 0px;
