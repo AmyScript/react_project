@@ -11,6 +11,10 @@ import { Router, Route, browserHistory, Link } from 'react-router';
 const indeedApiKey = '615485832038992';
 const indeedApiUrl = 'http://api.indeed.com/ads/apisearch'
 let userId = '';
+//gets a maximum of 125 results for each job search
+let ajaxIndexArray = [0,25,50,75,100];
+
+
 
 // Initialize Firebase
 var config = {
@@ -30,19 +34,18 @@ class App extends React.Component {
 			companies: {},
 			jobType: "",
 			jobLocation:"",
-			favJob: {}
+			favJob: {},
+			scrollPosition: localStorage.getItem("ScrollPosition")
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.getJobs = this.getJobs.bind(this);
 		this.save = this.save.bind(this);
+	
 	}
-
-	getJobs(e, jobType, jobLocation) {
-		e.preventDefault();
-		if (jobType !=="" && jobLocation !=="") {
-			localStorage.setItem("jobs_search", jobType);
-			localStorage.setItem("jobs_location", jobLocation);
-			const allJobs = ajax({
+	
+	
+	getJobs(startPage, jobType, jobLocation) {
+			return ajax({
 				url: 'http://proxy.hackeryou.com',
 	            dataType: 'json',
 	            method:'GET',
@@ -56,7 +59,7 @@ class App extends React.Component {
 	                    l: jobLocation,
 	                    sort: 'date',
 	                    radius: 25,
-	                    start: 0,
+	                    start: startPage,
 	                    limit: 25,
 	                    fromage: 30,
 	                    filter: 0,
@@ -65,48 +68,33 @@ class App extends React.Component {
 	                }
 	            }
 			})
-			when(allJobs).done((res) => {
-				this.setState({
-					jobs: res.results
+		
+	}
+	getJobsIteration(e,job, location) {
+		e.preventDefault();
+		const dataArray = [];
+		if (job !=="" && location !=="") {
+			localStorage.setItem("jobs_search", job);
+			localStorage.setItem("jobs_location", location);
+			for (let i=0; i < ajaxIndexArray.length; i++) {
+				let startPage = ajaxIndexArray[i];
+				dataArray.push(this.getJobs(startPage, job, location));
+			}
+			Promise.all(dataArray)
+			.then(res => {
+				let jobsArray=[];
+				jobsArray = res.map((item) => {
+					return item.results;
 				})
-			const allJobs2 = ajax({
-				url: 'http://proxy.hackeryou.com',
-	            dataType: 'json',
-	            method:'GET',
-	            data: {
-	                reqUrl: indeedApiUrl,
-	                params: {
-	                    publisher: indeedApiKey,
-	                    v: 2,
-	                    format: 'json',
-	                    q: jobType,
-	                    l: jobLocation,
-	                    sort: 'date',
-	                    radius: 25,
-	                    start: 25,
-	                    limit: 25,
-	                    fromage: 15,
-	                    filter: 0,
-	                    latlong: 1,
-	                    co: 'ca'
-	                }
-	            }
+				
+				jobsArray = _.flatten(jobsArray);
+				this.setState({
+						jobs: jobsArray
+				})
+
 			})
-			when(allJobs2).done((res2 => {
-				let jobsArray2 = res2.results;
-				let jobsArray = this.state.jobs;
-				for (let key in jobsArray2) {
-					const job = jobsArray2[key];
-					jobsArray.push(job);
-				}
-				this.setState({
-					jobs: jobsArray
-				})
-			}))
-			});
 		}
 	}
-
 	handleChange(e) {
 		this.setState({
 			[e.target.name]: e.target.value
@@ -138,16 +126,17 @@ class App extends React.Component {
 		})
 		
 	}
+
 	render() {
 		let searchSectionClassName = "searchSection";
 		if (this.state.jobs.length === 0) {
 			searchSectionClassName += " full";
 		}
 		return(
-			<div className="container">
+			<div className="container" id="home">
 				<Header />
 				<section className={searchSectionClassName}>
-					<form className="searchJobs" onSubmit={(e) => this.getJobs(e,this.state.jobType, this.state.jobLocation)}>
+					<form className="searchJobs" onSubmit={(e) => this.getJobsIteration(e,this.state.jobType, this.state.jobLocation)}>
 						<h4>Job:</h4><input type="text" name="jobType" onChange={this.handleChange} value={this.state.jobType} />
 						<h4>Location:</h4><input type="text" name="jobLocation" onChange={this.handleChange} value={this.state.jobLocation} /><button><h5>Search</h5></button>
 					</form>
@@ -171,8 +160,9 @@ class App extends React.Component {
 			const event = {
 				preventDefault() {}
 			}
-			this.getJobs(event, localStorage.getItem('jobs_search'), localStorage.getItem('jobs_location'));
+			this.getJobsIteration(event, localStorage.getItem('jobs_search'), localStorage.getItem('jobs_location'));
 		}
+		
 	}
 
 }
