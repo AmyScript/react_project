@@ -136,7 +136,7 @@ body {
 
 a {
   text-decoration: none;
-  font-size: 1.5rem; }
+  font-size: 1.6rem; }
 
 h1, h2, h3, h4, h5, h6 {
   padding: 0;
@@ -163,7 +163,8 @@ h5 {
   font-size: 2.4rem; }
 
 p {
-  font-size: 1.5rem; }
+  font-size: 1.5rem;
+  margin: 14px 0px; }
 
 .container {
   max-width: 1440px;
@@ -180,7 +181,9 @@ header {
   background: black; }
   header nav {
     display: -ms-flexbox;
-    display: flex; }
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center; }
   header ul {
     display: -ms-flexbox;
     display: flex; }
@@ -188,7 +191,8 @@ header {
       list-style: none;
       padding: 0px 20px; }
   header h1 {
-    color: white; }
+    color: white;
+    padding-left: 20px; }
     header h1 a {
       font-size: 4.2rem; }
   header a {
@@ -224,9 +228,11 @@ header {
     padding: 5px 10px;
     margin: 10px 40px;
     width: 200px; }
+    .user-form input:focus {
+      border: 1px solid #5484BC; }
   .user-form button {
     border: none;
-    background-color: #6484aa;
+    background-color: #5484BC;
     font-size: 1.5rem;
     font-weight: 800;
     width: 200px;
@@ -237,7 +243,7 @@ header {
       border: 1px solid black; }
 
 .fa.fa-user-circle-o, .fa.fa-user-plus {
-  color: #6484aa;
+  color: #5484BC;
   font-size: 4rem; }
 
 .fa.fa-times.closeForm {
@@ -276,6 +282,8 @@ form.searchJobs input {
   padding: 5px;
   margin: 0px 10px;
   vertical-align: middle; }
+  form.searchJobs input:focus {
+    border: 1px solid #5484BC; }
 
 form.searchJobs h4 {
   display: inline-block;
@@ -285,7 +293,7 @@ form.searchJobs button {
   vertical-align: middle;
   border: none;
   padding: 3px 10px;
-  background-color: #c99e2e; }
+  background-color: #F7DE28; }
   form.searchJobs button:hover {
     cursor: pointer;
     background-color: white; }
@@ -304,13 +312,19 @@ form.searchJobs button {
 .fa-star.invisible {
   display: none; }
 
+div.inline {
+  display: inline-block; }
+  div.inline button {
+    margin-left: 20px; }
+
 .jobItem {
-  padding: 20px 40px;
-  border: 1px solid #6484aa;
+  padding: 40px 40px;
+  border: 1px solid #5484BC;
   width: 60%;
   margin: 20px auto; }
   .jobItem h4 {
-    display: inline-block; }
+    display: inline-block;
+    overflow-wrap: break-word; }
   .jobItem h5 {
     vertical-align: middle; }
   .jobItem i {
@@ -318,12 +332,12 @@ form.searchJobs button {
     padding: 0px 5px; }
   .jobItem button {
     border: none;
-    background-color: #6484aa;
+    background-color: #5484BC;
     vertical-align: middle;
     padding: 5px 10px;
     font-weight: 800; }
   .jobItem .apply {
-    background-color: #c99e2e;
+    background-color: #F7DE28;
     width: 100px;
     padding: 5px 10px;
     text-align: center;
@@ -332,7 +346,7 @@ form.searchJobs button {
     display: inline-block;
     margin-top: 10px; }
   .jobItem .company, .jobItem .fa.fa-building-o {
-    color: #6484aa;
+    color: #5484BC;
     display: inline-block;
     font-size: 1.7rem; }
   .jobItem .city {
@@ -348,19 +362,19 @@ form.searchJobs button {
   margin: 0 auto; }
   .reviewItem .title {
     text-align: center; }
-    .reviewItem .title h3 {
+    .reviewItem .title h2 {
       display: inline-block;
       vertical-align: middle; }
     .reviewItem .title img {
-      width: 10%;
+      width: 100px;
       vertical-align: middle;
       padding: 0px 10px; }
     .reviewItem .title a {
-      color: #6484aa;
+      color: #5484BC;
       font-weight: bold; }
   .reviewItem button {
     border: none;
-    background-color: #c99e2e;
+    background-color: #F7DE28;
     width: 200px;
     padding: 5px 10px;
     text-align: center;
@@ -372,7 +386,7 @@ form.searchJobs button {
     padding: 20px 0px; }
 
 .blue {
-  color: #6484aa; }
+  color: #5484BC; }
 
 textarea {
   resize: none;
@@ -411,8 +425,12 @@ footer {
       margin-top: 10px; }
   .jobItem {
     padding: 20px 40px;
-    border: 1px solid #6484aa;
-    width: 80%; } }
+    border: 1px solid #5484BC;
+    width: 80%; }
+  .reviewItem {
+    padding: 20px 10px;
+    width: 80%;
+    margin: 0 auto; } }
 
 @media (max-width: 703px) {
   .searchSection.full {
@@ -427,12 +445,16 @@ footer {
     -ms-flex-align: center;
         align-items: center; }
   .searchSection.full {
-    height: calc(100vh - 135px - 113px); }
+    height: calc(640px - 135px - 113px); }
   .jobItem {
     padding: 20px 40px;
     border: none;
-    border-bottom: 1px solid #6484aa;
-    width: 100%; } }
+    border-bottom: 1px solid #5484BC;
+    width: 100%; }
+  .reviewItem {
+    padding: 20px 10px;
+    width: 80%;
+    margin: 0 auto; } }
 
 @media (max-width: 370px) {
   header {
@@ -446,6 +468,10 @@ footer {
           align-items: center;
       margin: 0 auto; }
   .searchSection.full {
-    height: calc(100vh - 169px - 113px); }
+    height: calc(640px - 169px - 113px); }
   .favJobs form button {
     margin: 0px; } }
+
+@media (max-width: 356px) {
+  div.inline button {
+    margin-left: 0px; } }

@@ -6,7 +6,7 @@ import Header from './header.js'
 import Footer from './footer.js'
 const glassdoorApiId = '131464';
 const glassdoorApiKey = 'bWbLVsTAXzS';
-const glassdoorApiUrl = 'http://api.glassdoor.com/api/api.htm?t.p=131464&t.k=bWbLVsTAXzS';
+const glassdoorApiUrl = 'https://api.glassdoor.com/api/api.htm?t.p=131464&t.k=bWbLVsTAXzS';
 
 export default class CompanyDetails extends React.Component {
 	constructor() {

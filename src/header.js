@@ -88,14 +88,16 @@ class Header extends React.Component {
 	}
 	signOut(e) {
 		e.preventDefault();
-		firebase.auth().signOut();
-		localStorage.setItem("jobs_search", '');
-		localStorage.setItem("jobs_location", '');
-		this.context.router.push('/');
+		sessionStorage.setItem("jobs_search", '');
+		sessionStorage.setItem("jobs_location", '');
+		
 		this.setState({
 			userId: ''
 		})
-		window.location.reload(false);
+		firebase.auth().signOut();
+		this.context.router.push('/');
+		window.location.reload(true);
+		
 
 	}
 	close(e) {
@@ -173,12 +175,12 @@ class Header extends React.Component {
 					</div>
 					<nav>
 						<ul>
-							<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#6484aa'}}>Job Search</Link></li>
-							<li className={favClassName}><Link activeClassName='active' className={favClassName} to={`/favs`} onlyActiveOnIndex={true} activeStyle={{color:'#6484aa'}}>My Favourites</Link></li>
+							<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>Job Search</Link></li>
+							<li className={favClassName}><Link activeClassName='active' className={favClassName} to={`/favs`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>My Favourites</Link></li>
 							<li className={signUpClassName}><a href="" className={signUpClassName} onClick={this.formToShow}>Sign Up</a></li>
 							<li className={loginClassName}><a href="" className={loginClassName} onClick={this.formToShow}>Log In</a></li>
 							<li className={signOutClassName}><a href="" className={signOutClassName} onClick={this.signOut}>Sign Out</a></li>
-							<li><a href="https://twitter.com/share?url=http%3A%2F%2Famyscript.com%2Fjobs&text=Find%20your%20dream%20job!" className="twitter-share-button"  target="newwindow"><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
+							<li><a href="https://twitter.com/share?url=https%3A%2F%2Fjobsearch-e2b46.firebaseapp.com&text=Find%20your%20dream%20job!" className="twitter-share-button"  target="newwindow"><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
 						</ul>
 					</nav>
 				</header>

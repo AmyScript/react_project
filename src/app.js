@@ -9,7 +9,7 @@ import Footer from './footer.js'
 import { Router, Route, browserHistory, Link } from 'react-router';
 
 const indeedApiKey = '615485832038992';
-const indeedApiUrl = 'http://api.indeed.com/ads/apisearch'
+const indeedApiUrl = 'https://api.indeed.com/ads/apisearch'
 let userId = '';
 //gets a maximum of 125 results for each job search
 let ajaxIndexArray = [0,25,50,75,100];
@@ -35,7 +35,6 @@ class App extends React.Component {
 			jobType: "",
 			jobLocation:"",
 			favJob: {},
-			scrollPosition: localStorage.getItem("ScrollPosition")
 		}
 		this.handleChange = this.handleChange.bind(this);
 		this.getJobs = this.getJobs.bind(this);
@@ -46,7 +45,7 @@ class App extends React.Component {
 	
 	getJobs(startPage, jobType, jobLocation) {
 			return ajax({
-				url: 'http://proxy.hackeryou.com',
+				url: 'https://proxy.hackeryou.com',
 	            dataType: 'json',
 	            method:'GET',
 	            data: {
@@ -74,8 +73,8 @@ class App extends React.Component {
 		e.preventDefault();
 		const dataArray = [];
 		if (job !=="" && location !=="") {
-			localStorage.setItem("jobs_search", job);
-			localStorage.setItem("jobs_location", location);
+			sessionStorage.setItem("jobs_search", job);
+			sessionStorage.setItem("jobs_location", location);
 			for (let i=0; i < ajaxIndexArray.length; i++) {
 				let startPage = ajaxIndexArray[i];
 				dataArray.push(this.getJobs(startPage, job, location));
@@ -156,13 +155,13 @@ class App extends React.Component {
 		)
 	}
 	componentDidMount() {
-		if(localStorage.getItem("jobs_search") && localStorage.getItem("jobs_location")) {
+		if(sessionStorage.getItem("jobs_search") && sessionStorage.getItem("jobs_location")) {
 			const event = {
 				preventDefault() {}
 			}
-			this.getJobsIteration(event, localStorage.getItem('jobs_search'), localStorage.getItem('jobs_location'));
+			this.getJobsIteration(event, sessionStorage.getItem('jobs_search'), sessionStorage.getItem('jobs_location'));
 		}
-		
+
 	}
 
 }

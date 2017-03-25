@@ -1,7 +1,7 @@
 @import 'setup';
 
-$blue:#6484aa;
-$yellow:#c99e2e;
+$blue:#5484BC;
+$yellow:#F7DE28;
 
 //global
 
@@ -15,7 +15,7 @@ body {
 
 a {
 	text-decoration: none;
-	font-size:1.5rem;
+	font-size:1.6rem;
 }
 
 //fonts
@@ -51,6 +51,7 @@ h5 {
 
 p {
 	font-size: 1.5rem;
+	margin: 14px 0px;
 }
 //body
 
@@ -69,6 +70,7 @@ header {
 	background:black;
 		nav {
 			display:flex;
+			align-items:center;
 		}
 		ul {
 		display:flex;
@@ -79,6 +81,7 @@ header {
 		}
 		h1 {
 			color:white;
+			padding-left:20px;
 			a {
 				font-size:4.2rem;
 			}
@@ -123,6 +126,9 @@ header {
 		padding:5px 10px;
 		margin:10px 40px;
 		width:200px;
+		&:focus {
+			border: 1px solid $blue;
+		}
 	}
 	button {
 		border:none;
@@ -185,6 +191,9 @@ form.searchJobs {
 		padding:5px;
 		margin:0px 10px;
 		vertical-align: middle;
+		&:focus {
+			border:1px solid $blue;
+		}
 
 	}
 	h4 {
@@ -222,14 +231,21 @@ form.searchJobs {
 	display:none;
 }
 
-
+div.inline {
+	display:inline-block;
+	button {
+		margin-left:20px;
+	}
+}
 .jobItem {
-	padding:20px 40px;
+	padding:40px 40px;
 	border:1px solid $blue;
 	width:60%;
 	margin:20px auto;
 	h4 {
 		display:inline-block;
+		overflow-wrap: break-word;
+		
 	}
 	h5 {
 		vertical-align: middle;
@@ -279,12 +295,12 @@ form.searchJobs {
 	margin:0 auto;
  	.title {
  		text-align: center;
- 		h3 {
+ 		h2 {
  			display:inline-block;
  			vertical-align: middle;
  		}
  		img {
- 			width:10%;
+ 			width:100px;
  			vertical-align: middle;
  			padding:0px 10px;
  		}
@@ -373,6 +389,11 @@ header {
 	border:1px solid $blue;
 	width:80%;
 	}
+.reviewItem {
+	padding:20px 10px;
+    width: 80%;
+    margin: 0 auto;
+}
 }
 
 @media (max-width: 703px) {
@@ -390,7 +411,7 @@ footer {
 	align-items:center;
 }
 .searchSection.full {
-	height:calc(100vh - 135px - 113px)
+	height:calc(640px - 135px - 113px)
 }
 .jobItem {
 	padding:20px 40px;
@@ -399,6 +420,11 @@ footer {
 	width:100%;
 
 	}
+.reviewItem {
+	padding:20px 10px;
+    width: 80%;
+    margin: 0 auto;
+}
 }
 
 @media (max-width: 370px) {
@@ -412,9 +438,16 @@ header {
 	}
 }
 .searchSection.full {
-	height:calc(100vh - 169px - 113px)
+	height:calc(640px - 169px - 113px)
 }
 .favJobs form button {
     margin: 0px;
 }
+}
+
+@media (max-width: 356px) {
+	div.inline button {
+    margin-left:0px;
+	}
+
 }

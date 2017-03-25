@@ -79,13 +79,16 @@ export default class Fav extends React.Component {
 		}
 		return(
 			<div className="jobItem" key={this.props.data.key}>
-				<h4>{this.props.data.job}</h4> 
-				<i className="fa fa-times" onClick={() => this.remove(this.props.data.key)} aria-hidden="true"></i>
-				<i className="fa fa-pencil-square-o" onClick={() => this.showNote(this.props.data.key)} aria-hidden="true"></i>
 				<div>
+					<h4>{this.props.data.job}</h4> 
+					<i className="fa fa-times" onClick={() => this.remove(this.props.data.key)} aria-hidden="true"></i>
+					<i className="fa fa-pencil-square-o" onClick={() => this.showNote(this.props.data.key)} aria-hidden="true"></i>
+				</div>
+				<div className="inline">
+
 					<i className="fa fa-building-o" aria-hidden="true"></i><p className="company"><strong>{this.props.data.company}</strong></p>
 				</div>
-				<div>
+				<div className="inline">
 					<Link to={`/company/${this.props.data.company}`}><button>Check Company</button></Link> 
 				</div>
 				<div>

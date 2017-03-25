@@ -60,10 +60,10 @@ export default class Job extends React.Component {
 					<h4>{this.props.data.jobtitle}</h4>
 					<i className={starClassNames} onClick={() => this.clickHandler()} aria-hidden="true"></i>
 					</div>
-					<div>
+					<div className="inline">
 					<i className="fa fa-building-o" aria-hidden="true"></i><p className="company"><strong>{this.props.data.company}</strong></p>
 					</div>
-					<div>
+					<div className="inline">
 					<Link to={`/company/${this.props.data.company}`}><button>Check Company</button></Link>
 					</div>
 					<div>
