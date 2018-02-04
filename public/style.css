@@ -260,13 +260,6 @@ header {
     padding: 5px 5px;
     -ms-flex-wrap: nowrap;
         flex-wrap: nowrap; }
-    .mobile header animated-icon1:hover nav {
-      visibility: visible;
-      /* shows sub-menu */
-      opacity: 1;
-      z-index: 1;
-      transform: translateY(0%);
-      transition-delay: 0s, 0s, 0.3s; }
     .mobile header img {
       width: 13%; }
     .mobile header h1 a {

@@ -157,13 +157,6 @@ header {
 		header{
 			padding:5px 5px;
 			flex-wrap:nowrap;
-			animated-icon1:hover nav {
-				visibility: visible; /* shows sub-menu */
-				opacity: 1;
-				z-index: 1;
-				transform: translateY(0%);
-				transition-delay: 0s, 0s, 0.3s;
-			}
 			img {
 				width:13%;
 			}
