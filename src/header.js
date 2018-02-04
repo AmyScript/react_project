@@ -12,7 +12,8 @@ class Header extends React.Component {
 			password: '',
 			confirm: '',
 			userId:'',
-			errorMsg:''
+			errorMsg:'',
+			toggleMenu:false
 		};
 		this.formToShow = this.formToShow.bind(this);
 		this.handleChange = this.handleChange.bind(this);
@@ -20,12 +21,18 @@ class Header extends React.Component {
 		this.login = this.login.bind(this);
 		this.signOut = this.signOut.bind(this);
 		this.close = this.close.bind(this);
+		this.toggleMenu = this.toggleMenu.bind(this);
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				this.setState({
 					userId: user.uid
 				})
 			}
+		})
+	}
+	toggleMenu() {
+		this.setState({
+			toggleMenu : !this.state.toggleMenu,
 		})
 	}
 	formToShow(e) {
@@ -108,9 +115,11 @@ class Header extends React.Component {
 	}
 	render() {
 		loginForm = '';
+
 		let loginClassName = "login";
 		let signUpClassName = "signup";
 		let signOutClassName = "signout";
+		let toggleMenuName = "animated-icon1";
 		let favClassName =" ";
 		if (this.state.userId) {
 			loginClassName += " invisible";
@@ -118,6 +127,33 @@ class Header extends React.Component {
 		} else {
 			signOutClassName +=" invisible";
 			favClassName +="invisible";
+		}
+		let mobilemenu = (
+			<nav>
+				<ul>
+					<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>Job Search</Link></li>
+					<li className={favClassName}><Link activeClassName='active' className={favClassName} to={`/favs`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>My Favourites</Link></li>
+					<li className={signUpClassName}><a href="" className={signUpClassName} onClick={this.formToShow}>Sign Up</a></li>
+					<li className={loginClassName}><a href="" className={loginClassName} onClick={this.formToShow}>Log In</a></li>
+					<li className={signOutClassName}><a href="" className={signOutClassName} onClick={this.signOut}>Sign Out</a></li>
+					<li><a href="https://twitter.com/share?url=https%3A%2F%2Fjobsearch-e2b46.firebaseapp.com&text=Find%20your%20dream%20job!" className="twitter-share-button"  target="newwindow"><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
+				</ul>
+			</nav>
+		);
+		if (this.state.toggleMenu) {
+			toggleMenuName += " open";
+			mobilemenu = (
+				<nav className="open">
+					<ul>
+						<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>Job Search</Link></li>
+						<li className={favClassName}><Link activeClassName='active' className={favClassName} to={`/favs`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>My Favourites</Link></li>
+						<li className={signUpClassName}><a href="" className={signUpClassName} onClick={this.formToShow}>Sign Up</a></li>
+						<li className={loginClassName}><a href="" className={loginClassName} onClick={this.formToShow}>Log In</a></li>
+						<li className={signOutClassName}><a href="" className={signOutClassName} onClick={this.signOut}>Sign Out</a></li>
+						<li><a href="https://twitter.com/share?url=https%3A%2F%2Fjobsearch-e2b46.firebaseapp.com&text=Find%20your%20dream%20job!" className="twitter-share-button"  target="newwindow"><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
+					</ul>
+				</nav>
+			);
 		}
 		
 		if(this.state.formToShow === 'signup') {
@@ -169,22 +205,35 @@ class Header extends React.Component {
 		}
 		return(
 			<div>
-				<header>
-					<div>
-						<h1 className="logo"><Link to={`/`}>Dream Job</Link></h1><img src="../dreamJob.png" />
-					</div>
-					<nav>
-						<ul>
-							<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>Job Search</Link></li>
-							<li className={favClassName}><Link activeClassName='active' className={favClassName} to={`/favs`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>My Favourites</Link></li>
-							<li className={signUpClassName}><a href="" className={signUpClassName} onClick={this.formToShow}>Sign Up</a></li>
-							<li className={loginClassName}><a href="" className={loginClassName} onClick={this.formToShow}>Log In</a></li>
-							<li className={signOutClassName}><a href="" className={signOutClassName} onClick={this.signOut}>Sign Out</a></li>
-							<li><a href="https://twitter.com/share?url=https%3A%2F%2Fjobsearch-e2b46.firebaseapp.com&text=Find%20your%20dream%20job!" className="twitter-share-button"  target="newwindow"><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
-						</ul>
-					</nav>
-				</header>
-				{loginForm}
+				<div className="desktop">
+					<header>
+						<div>
+							<h1 className="logo"><Link to={`/`}>Dream Job</Link></h1><img src="../dreamJob.png" />
+						</div>
+						<nav>
+							<ul>
+								<li><Link activeClassName='active' to={`/`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>Job Search</Link></li>
+								<li className={favClassName}><Link activeClassName='active' className={favClassName} to={`/favs`} onlyActiveOnIndex={true} activeStyle={{color:'#5484BC'}}>My Favourites</Link></li>
+								<li className={signUpClassName}><a href="" className={signUpClassName} onClick={this.formToShow}>Sign Up</a></li>
+								<li className={loginClassName}><a href="" className={loginClassName} onClick={this.formToShow}>Log In</a></li>
+								<li className={signOutClassName}><a href="" className={signOutClassName} onClick={this.signOut}>Sign Out</a></li>
+								<li><a href="https://twitter.com/share?url=https%3A%2F%2Fjobsearch-e2b46.firebaseapp.com&text=Find%20your%20dream%20job!" className="twitter-share-button"  target="newwindow"><i className="fa fa-twitter-square"  aria-hidden="true"></i></a><script async src="//platform.twitter.com/widgets.js" charSet="utf-8"></script></li>
+							</ul>
+						</nav>
+					</header>
+					{loginForm}
+				</div>
+				<div className="mobile">
+					<header>
+						<div className="mobileBrand">
+							<h1 className="logo"><Link to={`/`}>Dream Job</Link></h1><img src="../dreamJob.png" />
+						</div>
+						<div className={toggleMenuName} onClick={this.toggleMenu}><span></span><span></span><span></span></div>
+						
+					</header>
+					{mobilemenu}
+					{loginForm}
+				</div>
 			</div>
 		)
 	}

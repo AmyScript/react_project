@@ -212,6 +212,102 @@ header {
 .fa.fa-twitter-square {
   font-size: 2.5rem; }
 
+@media (min-width: 768px) {
+  .mobile {
+    display: none; } }
+
+@media (max-width: 768px) {
+  .desktop {
+    display: none; }
+  .mobile .mobileBrand {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: center;
+        align-items: center; }
+    .mobile .mobileBrand .logo {
+      display: -ms-flexbox;
+      display: flex; }
+      .mobile .mobileBrand .logo img {
+        -ms-flex-item-align: center;
+            -ms-grid-row-align: center;
+            align-self: center; }
+  .mobile nav {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 1s ease-in-out;
+    display: -ms-flexbox;
+    display: flex;
+    background: black;
+    -ms-flex-direction: column;
+        flex-direction: column; }
+    .mobile nav ul {
+      display: -ms-flexbox;
+      display: flex;
+      -ms-flex-direction: column;
+          flex-direction: column;
+      padding-left: 20px; }
+      .mobile nav ul li {
+        list-style: none;
+        padding: 20px 0px; }
+        .mobile nav ul li a {
+          color: white;
+          font-size: 1.9rem; }
+  .mobile nav.open {
+    max-height: 500px;
+    transition: max-height 1s ease-in-out; }
+  .mobile header {
+    padding: 5px 5px;
+    -ms-flex-wrap: nowrap;
+        flex-wrap: nowrap; }
+    .mobile header animated-icon1:hover nav {
+      visibility: visible;
+      /* shows sub-menu */
+      opacity: 1;
+      z-index: 1;
+      transform: translateY(0%);
+      transition-delay: 0s, 0s, 0.3s; }
+    .mobile header img {
+      width: 13%; }
+    .mobile header h1 a {
+      font-size: 2rem; }
+  /* Icon 1 */
+  .animated-icon1 {
+    width: 30px;
+    height: 20px;
+    position: relative;
+    margin: 14px;
+    transform: rotate(0deg);
+    transition: .5s ease-in-out;
+    cursor: pointer; }
+  .animated-icon1 span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    border-radius: 9px;
+    opacity: 1;
+    left: 0;
+    transform: rotate(0deg);
+    transition: .25s ease-in-out; }
+  .animated-icon1 span {
+    background: #5484bc; }
+  .animated-icon1 span:nth-child(1) {
+    top: 0px; }
+  .animated-icon1 span:nth-child(2) {
+    top: 10px; }
+  .animated-icon1 span:nth-child(3) {
+    top: 20px; }
+  .animated-icon1.open span:nth-child(1) {
+    top: 11px;
+    transform: rotate(135deg); }
+  .animated-icon1.open span:nth-child(2) {
+    opacity: 0;
+    left: -60px; }
+  .animated-icon1.open span:nth-child(3) {
+    top: 11px;
+    transform: rotate(-135deg); } }
+
 .user-form {
   position: fixed;
   padding: 40px 0px;
@@ -457,16 +553,6 @@ footer {
     margin: 0 auto; } }
 
 @media (max-width: 370px) {
-  header {
-    -ms-flex-direction: column;
-        flex-direction: column;
-    text-align: center; }
-    header ul {
-      -ms-flex-direction: column;
-          flex-direction: column;
-      -ms-flex-align: center;
-          align-items: center;
-      margin: 0 auto; }
   .searchSection.full {
     height: calc(640px - 169px - 113px); }
   .favJobs form button {
